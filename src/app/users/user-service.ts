@@ -10,7 +10,6 @@ export class UserService {
 
 
   getUsers(){
-    //this.http.get<any>('http://localhost:8080/api/users')
     this.http.get<any>('https://spriingmoviedemo-c8e2h0c2hjgbh9dj.centralindia-01.azurewebsites.net/api/users')
     .subscribe(users => {
       console.log(users);

@@ -20,7 +20,8 @@
                 "glob": "**/*",
                 "input": "public"
               },
-              "src/web.config"
+              "src/web.config",
+              "src/nginx.conf"
             ],
             "styles": [
               "src/styles.css"
@@ -74,7 +75,8 @@
                 "glob": "**/*",
                 "input": "public"
               },
-              "src/web.config"
+              "src/web.config",
+               "src/nginx.conf"
             ],
             "styles": [
               "src/styles.css"
