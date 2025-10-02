@@ -1,0 +1,47 @@
+.dialog-wrapper {
+    padding:10px;
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+  }
+  
+  .dialog-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .close-btn {
+    color: #888;
+  }
+  
+  .close-btn:hover {
+    color: #000;
+  }
+  
+  .user-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-field {
+    margin-bottom: 15px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .row {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .half-width {
+    flex: 1;
+  }
