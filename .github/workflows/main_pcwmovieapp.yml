@@ -61,5 +61,5 @@ jobs:
         with:
           app-name: 'pcwmovieapp'
           slot-name: 'Production'
-          package: dist/wwwroot/movieweb
+          package: ./dist/wwwroot/movieweb
           
