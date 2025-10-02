@@ -8,6 +8,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { UserService } from '../user-service';
+import { User } from '../../model/user';
 
 @Component({
   selector: 'app-add-user-dialog',
@@ -21,9 +23,13 @@ import { MatSelectModule } from '@angular/material/select';
   styleUrl: './add-user-dialog.css'
 })
 export class AddUserDialog {
+  isLoading = false;
   userForm: FormGroup;
 
-  constructor(private fb: FormBuilder,private dialogRef: MatDialogRef<AddUserDialog>) {
+  constructor(
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<AddUserDialog>,
+    private userService: UserService) {
     this.userForm = this.fb.group({
       userName: ['', Validators.required],
       firstName: ['', Validators.required],
@@ -34,12 +40,25 @@ export class AddUserDialog {
   }
 
   save() {
-    if (this.userForm.valid) {
-      console.log('User Data:', this.userForm.value);
-      alert('User submitted successfully!');
-    } else {
+    if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();
+      return;
     }
+
+    this.isLoading = true;
+    const user: User = this.userForm.value;
+
+    this.userService.addUser(user).subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        this.dialogRef.close(res); // return created user to parent component
+      },
+      error: (err) => {
+        this.isLoading = false;
+        console.error('Error adding user:', err);
+        alert('Failed to add user. Please try again.');
+      }
+    });
   }
 
   close() {

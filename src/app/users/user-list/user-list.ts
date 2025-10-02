@@ -7,12 +7,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { AddUserDialog } from '../add-user-dialog/add-user-dialog';
 import { MatDialog } from '@angular/material/dialog';
-export interface User {
-  id: number;
-  userName: string;
-  firstName: string;
-  lastName: string;
-}
+import { User } from '../../model/user';
+
 
 @Component({
   selector: 'app-user-list',
@@ -29,12 +25,17 @@ export class UserList implements AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
   constructor(private dialog: MatDialog) {
+    this.getUserList();
+  }
+
+  
+
+ 
+  getUserList(){
     this.userService.getUsers().subscribe(res => {
       this.dataSource.data = res;
     });
   }
-
- 
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -48,7 +49,7 @@ export class UserList implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result: User | undefined) => {
       if (result) {
-       
+         this.getUserList();
       }
     });
   }
