@@ -61,6 +61,6 @@ jobs:
         with:
           app-name: 'pcwmovieweb'
           slot-name: 'Production'
-          package: dist/movieweb/browser
+          package: C:\home\site\wwwroot\dist\
 
           
