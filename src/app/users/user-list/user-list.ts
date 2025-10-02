@@ -1,16 +1,40 @@
-import { Component, inject } from '@angular/core';
+import { AfterViewInit, Component, inject, ViewChild } from '@angular/core';
 import { UserService } from '../user-service';
+import { MatList, MatListItem, MatListModule } from '@angular/material/list';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+export interface User {
+  id: number;
+  userName: string;
+  firstName: string;
+  lastName: string;
+}
 
 @Component({
   selector: 'app-user-list',
-  imports: [],
+  imports: [MatListModule, MatIconModule, MatDividerModule,MatTableModule, MatPaginatorModule],
   templateUrl: './user-list.html',
   styleUrl: './user-list.css'
 })
-export class UserList {
+export class UserList implements AfterViewInit {
   userService: UserService = inject(UserService);
+
+  displayedColumns: string[] = ['userName', 'firstName', 'lastName'];
+  dataSource = new MatTableDataSource<User>();
+
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+
   constructor() {
-    let users = this.userService.getUsers();
+    this.userService.getUsers().subscribe(res => {
+      this.dataSource.data = res;
+    });
   }
 
+ 
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 }
