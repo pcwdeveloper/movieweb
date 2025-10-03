@@ -43,7 +43,6 @@ export class UserList implements AfterViewInit {
     this.userService.getUsers(this.pageIndex,this.pageSize).subscribe(res => {
       this.isLoading = false;
       this.dataSource.data = res.content;
-      //debugger;
       this.totalElements = res.totalElements;
     },
      (err) => {
