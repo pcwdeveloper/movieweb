@@ -8,11 +8,12 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { AddUserDialog } from '../add-user-dialog/add-user-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from '../../model/user';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-user-list',
-  imports: [MatListModule, MatIconModule, MatDividerModule,MatTableModule, MatPaginatorModule],
+  imports: [CommonModule, MatListModule, MatIconModule, MatDividerModule,MatTableModule, MatPaginatorModule],
   templateUrl: './user-list.html',
   styleUrl: './user-list.css'
 })
@@ -24,6 +25,7 @@ export class UserList implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
 
+  isLoading = false;
   constructor(private dialog: MatDialog) {
     this.getUserList();
   }
@@ -31,8 +33,14 @@ export class UserList implements AfterViewInit {
 
  
   getUserList(){
+    this.isLoading = true;
     this.userService.getUsers().subscribe(res => {
+      this.isLoading = false;
       this.dataSource.data = res;
+    },
+     (err) => {
+      this.isLoading = false;
+      console.error('Error get user:', err);
     });
   }
 
