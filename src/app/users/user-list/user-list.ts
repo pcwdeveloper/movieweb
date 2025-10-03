@@ -4,16 +4,17 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { AddUserDialog } from '../add-user-dialog/add-user-dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from '../../model/user';
 import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @Component({
   selector: 'app-user-list',
-  imports: [CommonModule, MatListModule, MatIconModule, MatDividerModule,MatTableModule, MatPaginatorModule],
+  imports: [CommonModule, MatListModule, MatIconModule, MatDividerModule,MatTableModule, MatPaginatorModule,MatProgressSpinnerModule],
   templateUrl: './user-list.html',
   styleUrl: './user-list.css'
 })
@@ -23,20 +24,27 @@ export class UserList implements AfterViewInit {
   displayedColumns: string[] = ['userName', 'firstName', 'lastName'];
   dataSource = new MatTableDataSource<User>();
 
-  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  totalElements = 0;
+  pageSize = 5;
+  pageIndex = 0;
 
   isLoading = false;
   constructor(private dialog: MatDialog) {
-    this.getUserList();
+    this.loadUsers();
   }
 
 
  
-  getUserList(){
+  loadUsers(){
     this.isLoading = true;
-    this.userService.getUsers().subscribe(res => {
+
+    this.userService.getUsers(this.pageIndex,this.pageSize).subscribe(res => {
       this.isLoading = false;
-      this.dataSource.data = res;
+      this.dataSource.data = res.content;
+      //debugger;
+      this.totalElements = res.totalElements;
     },
      (err) => {
       this.isLoading = false;
@@ -45,7 +53,7 @@ export class UserList implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    //this.dataSource.paginator = this.paginator;
   }
 
 
@@ -56,8 +64,15 @@ export class UserList implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe((result: User | undefined) => {
       if (result) {
-         this.getUserList();
+         this.loadUsers();
       }
     });
+  }
+
+
+  onPageChange(event: PageEvent): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize  = event.pageSize;
+    this.loadUsers();
   }
 }

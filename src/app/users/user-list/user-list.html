@@ -1,6 +1,6 @@
 <div class="user-list-container">
-    <div *ngIf="isLoading">
-        Loading...
+    <div *ngIf="isLoading" class="text-center mt-3">
+        <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
     </div>
 
     <button mat-raised-button color="primary" (click)="addUser()" *ngIf="!isLoading">
@@ -29,4 +29,13 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+
+    <mat-paginator  [length]="totalElements" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+    aria-label="User list pagination" (page)="onPageChange($event)">
+    </mat-paginator>
+
+    totalElements - {{totalElements}}
+    pageSize - {{pageSize}}
+    pageIndex - {{pageIndex}}
+
   </div>

@@ -12,8 +12,8 @@ export class UserService {
   private http = inject(HttpClient);
 
 
-  getUsers(): Observable<any>{
-    return this.http.get<any>(environment.apiBaseUrl+'api/users');
+  getUsers(pageIndex:number, pageSize:number): Observable<any>{
+    return this.http.get<any>(environment.apiBaseUrl+'api/users?pageIndex='+pageIndex+'&pageSize='+pageSize);
   }
 
   addUser(user: User): Observable<User> {
