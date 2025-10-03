@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
 import { UserService } from '../user-service';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,18 +10,20 @@ import { MatDialog } from '@angular/material/dialog';
 import { User } from '../../model/user';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
   selector: 'app-user-list',
-  imports: [CommonModule, MatListModule, MatIconModule, MatDividerModule,MatTableModule, MatPaginatorModule,MatProgressSpinnerModule],
+  imports: [CommonModule, MatListModule, MatIconModule, MatDividerModule,MatTableModule, MatPaginatorModule,MatProgressSpinnerModule,MatButtonModule],
   templateUrl: './user-list.html',
-  styleUrl: './user-list.css'
+  styleUrl: './user-list.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserList implements AfterViewInit {
+export class UserList {
   userService: UserService = inject(UserService);
 
-  displayedColumns: string[] = ['userName', 'firstName', 'lastName'];
+  displayedColumns: string[] = ['userName', 'firstName', 'lastName', 'email', 'phoneNo', 'action'];
   dataSource = new MatTableDataSource<User>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -31,7 +33,7 @@ export class UserList implements AfterViewInit {
   pageIndex = 0;
 
   isLoading = false;
-  constructor(private dialog: MatDialog) {
+  constructor(private dialog: MatDialog,private cdr: ChangeDetectorRef) {
     this.loadUsers();
   }
 
@@ -51,14 +53,14 @@ export class UserList implements AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
-    //this.dataSource.paginator = this.paginator;
+  addUser() {
+    this.openDialog();
   }
 
-
-  addUser() {
+  openDialog(user?:User){
     const dialogRef = this.dialog.open(AddUserDialog, {
-      width: '400px'
+      width: '400px',
+      data:user
     });
 
     dialogRef.afterClosed().subscribe((result: User | undefined) => {
@@ -74,4 +76,37 @@ export class UserList implements AfterViewInit {
     this.pageSize  = event.pageSize;
     this.loadUsers();
   }
+
+  deleteUser(user:User){
+    this.isLoading = true;
+    this.userService.deleteUser(user.id).subscribe(res => {
+      this.isLoading = false;
+      this.loadUsers();
+    },
+     (err) => {
+      this.isLoading = false;
+      console.error('Error delete user:', err);
+    });
+  }
+
+  editUser(user:User){
+    this.isLoading = true;
+    this.cdr.detectChanges();
+    this.userService.getUser(user.id).subscribe(res => {
+     
+        // ✅ prevents ExpressionChangedAfterItWasCheckedError
+        this.isLoading = false;
+        this.cdr.detectChanges();
+        this.openDialog(res);
+     
+    },
+     (err) => {
+      this.isLoading = false;
+      this.cdr.detectChanges();
+      console.error('Error edit user:', err);
+    });
+  }
+
+
+  
 }
