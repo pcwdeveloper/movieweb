@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -20,7 +20,8 @@ import { User } from '../../model/user';
     MatButtonModule,
     MatIconModule],
   templateUrl: './add-user-dialog.html',
-  styleUrl: './add-user-dialog.css'
+  styleUrl: './add-user-dialog.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AddUserDialog {
   isLoading = false;

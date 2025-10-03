@@ -62,7 +62,7 @@
   
   <div mat-dialog-actions align="end">
     <button mat-button (click)="close()">Cancel</button>
-    <button mat-raised-button color="primary" (click)="save()" matButton="filled">Save</button>
+    <button mat-raised-button color="primary" (click)="save()" matButton="filled" [disabled]="isLoading">{{ isLoading ? 'Saving...' : 'Save' }}</button>
   </div>
 
 </div>
