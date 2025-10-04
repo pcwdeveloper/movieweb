@@ -33,8 +33,10 @@ export class AddUserDialog {
     private userService: UserService,
     @Inject(MAT_DIALOG_DATA) public data: any) {
 
+    let disableUsername = this.data?.userName ? true : false;
+
     this.userForm = this.fb.group({
-      userName: [{ value: this.data?.userName, disabled: true}, Validators.required],
+      userName: [{ value: this.data?.userName, disabled: disableUsername}, Validators.required],
       firstName: [this.data?.firstName, Validators.required],
       lastName: [this.data?.lastName, Validators.required],
       phoneNo: [this.data?.phoneNo, [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
