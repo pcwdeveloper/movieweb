@@ -48,12 +48,9 @@ export class Login {
     this.isLoading = true;
     let loginRequest = this.loginForm.value;
     this.loginService.login(loginRequest).subscribe(res => {
-      console.log('sucess');
       this.isLoading = false;
       localStorage.setItem('token', res.token);
-      console.log('save localStorate');
-      this.router.navigate(['/users']);
-      console.log('navigate localStorate');
+      this.router.navigate(['/dashboard']);
     },
      (err) => {
       this.isLoading = false;
