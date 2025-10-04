@@ -20,10 +20,7 @@ export class App {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      // Hide menu on login page
-      this.showMenu = !event.url.includes('login');
-      console.log("showMenu");
-      console.log(this.showMenu);
+      this.showMenu = !event.url.includes('login') && event.url !== '/';
     });
   }
 
