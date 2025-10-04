@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject } from '@
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { DashboardService } from '../services/dashboard-service';
+import { DashboardService } from '../services/dashboard.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
