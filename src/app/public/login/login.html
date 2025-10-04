@@ -1,0 +1,35 @@
+<div class="login-wrapper">
+    <mat-card class="login-card">
+      <mat-card-header>
+        <mat-card-title>Welcome Back</mat-card-title>
+        <mat-card-subtitle>Please log in to continue</mat-card-subtitle>
+      </mat-card-header>
+  
+      <mat-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Username</mat-label>
+            <input matInput formControlName="username" placeholder="Enter your username" type="text">
+            <mat-error *ngIf="loginForm.get('username')?.hasError('required')">Username is required</mat-error>
+            <mat-error *ngIf="loginForm.get('username')?.hasError('userName')">Invalid username format</mat-error>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input matInput formControlName="password" placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix type="button" (click)="hide = !hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Password is required</mat-error>
+          </mat-form-field>
+  
+          <div class="actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid || isLoading">
+              <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" diameter="20"></mat-progress-spinner>
+              <span *ngIf="!isLoading">Login</span>
+            </button>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
