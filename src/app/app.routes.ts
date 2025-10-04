@@ -15,9 +15,14 @@ export const routes: Routes = [
       component: UserList,
       canActivate: [AuthGuard]
     },
+    {
+        path: 'login', 
+        component: Login
+    },
     { 
         path: '', 
-        component: Login },
+        component: Login
+    },
     { 
         path: '**', 
         redirectTo: '' 
