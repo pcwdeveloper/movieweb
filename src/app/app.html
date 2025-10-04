@@ -10,26 +10,21 @@
 
 
 <main class="main" *ngIf="showMenu">
-  <button matButton [matMenuTriggerFor]="userMenu">Users</button>
-  <mat-menu #userMenu="matMenu" yPosition="above">
-    <a matButton href="/users">Users</a>
-  </mat-menu>
+
+ 
+  <a matButton href="/dashboard">Dashboard</a>
+  <a matButton href="/users">Users</a>
   
   <button matButton (click)="logout()">Logout</button>
   
   
-  <button matButton [matMenuTriggerFor]="beforeMenu">Before</button>
+  <!-- <button matButton [matMenuTriggerFor]="beforeMenu">Before</button>
   <mat-menu #beforeMenu="matMenu" xPosition="before">
     <button mat-menu-item>Item 1</button>
     <button mat-menu-item>Item 2</button>
-  </mat-menu>
+  </mat-menu> -->
   
-  
-  <button matButton [matMenuTriggerFor]="afterMenu">After</button>
-  <mat-menu #afterMenu="matMenu" xPosition="after">
-    <button mat-menu-item>Item 1</button>
-    <button mat-menu-item>Item 2</button>
-  </mat-menu>
+
 </main>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

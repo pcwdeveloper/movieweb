@@ -1,1 +1,35 @@
-<p>dashboard-component works!</p>
+<div class="dashboard-container">
+    <h2>User Stats</h2>
+  
+    <div class="stats-grid">
+      <mat-card appearance="filled" class="stat-card total">
+        <mat-card-header>
+          <mat-icon color="primary">group</mat-icon>
+          <mat-card-title>Total Users</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <h1>{{totalUsers}}</h1>
+        </mat-card-content>
+      </mat-card>
+  
+      <mat-card appearance="filled" class="stat-card active">
+        <mat-card-header>
+          <mat-icon color="accent">verified_user</mat-icon>
+          <mat-card-title>Active Users</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <h1>{{activeUsers}}</h1>
+        </mat-card-content>
+      </mat-card>
+  
+      <mat-card appearance="filled" class="stat-card inactive">
+        <mat-card-header>
+          <mat-icon color="warn">person_off</mat-icon>
+          <mat-card-title>Inactive Users</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <h1>{{inActiveUsers}}</h1>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
