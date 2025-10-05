@@ -11,6 +11,7 @@ import { User } from '../../model/user';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserList {
+  userRole: string | null = null;
   userService: UserService = inject(UserService);
 
   displayedColumns: string[] = ['userName', 'firstName', 'lastName', 'email', 'phoneNo', 'action'];
@@ -33,7 +35,8 @@ export class UserList {
   pageIndex = 0;
 
   isLoading = false;
-  constructor(private dialog: MatDialog,private cdr: ChangeDetectorRef) {
+  constructor(private dialog: MatDialog,private cdr: ChangeDetectorRef, private authService: AuthService) {
+    this.userRole = this.authService.getUserRole();
     this.loadUsers();
   }
 

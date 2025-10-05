@@ -5,30 +5,20 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { environment } from '../environments/environment';
 import { filter } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { NavbarComponent } from './common/navbar-component/navbar-component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,MatButtonModule, MatMenuModule,CommonModule],
+  imports: [NavbarComponent,RouterOutlet,MatButtonModule, MatMenuModule,CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('movieweb');
-  showMenu = false;
+  
 
   constructor(private router: Router) {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event: any) => {
-      this.showMenu = !event.url.includes('login') && event.url !== '/';
-    });
+    
   }
 
-
-  logout(){
-   
-    localStorage.clear();
-    this.router.navigate(['']);
-
-  }
 }

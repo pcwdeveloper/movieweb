@@ -2,3 +2,38 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+.container {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    height: calc(100vh - 64px); /* adjust for toolbar height */
+    gap: 1rem;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  
+  .left-column {
+    background-color: #fafafa;
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+  
+  .right-column {
+    background-color: #fff;
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+  
+  /* Optional: make it responsive */
+  @media (max-width: 768px) {
+    .container {
+      grid-template-columns: 100%;
+    }
+    .left-column {
+      order: 2;
+    }
+    .right-column {
+      order: 1;
+    }
+  }

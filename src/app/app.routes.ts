@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard-component/dashboard-component';
 import { authGuard } from './config/auth.guard';
 import { roleGuard } from './config/role.guard';
 import { ForbiddenComponent } from './public/forbidden-component/forbidden-component';
+import { AspAdminComponent } from './admin/asp-admin-component/asp-admin-component';
 
 export const routes: Routes = [
     {
@@ -15,7 +16,12 @@ export const routes: Routes = [
     { 
       path: 'users', 
       component: UserList,
-      canActivate: [authGuard,roleGuard(['ADMIN'])]
+      canActivate: [authGuard]
+    },
+    {
+        path: 'asp-admin', 
+        component: AspAdminComponent,
+        canActivate: [authGuard,roleGuard(['ADMIN'])]
     },
     {
         path: 'forbidden', 

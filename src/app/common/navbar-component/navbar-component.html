@@ -1,0 +1,26 @@
+<mat-toolbar color="primary" class="navbar" *ngIf="showMenu">
+    <span class="logo">MyApp</span>
+  
+    <span class="spacer"></span>
+  
+    <a matButton href="/dashboard">Dashboard</a>
+    <a matButton href="/users">Users</a>
+  
+   
+    <button mat-button [matMenuTriggerFor]="adminMenu">
+      Admin
+      <mat-icon>expand_more</mat-icon>
+    </button>
+    <mat-menu #adminMenu="matMenu">
+        <a matButton href="/asp-admin">ASP Admin</a>
+        <a matButton href="/settings">Settings</a>
+    </mat-menu>
+  
+    <button mat-icon-button [matMenuTriggerFor]="profileMenu">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #profileMenu="matMenu">
+      <button mat-menu-item>Profile</button>
+      <button matButton (click)="logout()">Logout</button>
+    </mat-menu>
+  </mat-toolbar>
