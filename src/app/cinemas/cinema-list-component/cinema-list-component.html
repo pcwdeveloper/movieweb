@@ -1,0 +1,56 @@
+<div class="user-list-container">
+    <div *ngIf="isLoading" class="text-center mt-3">
+        <mat-spinner [diameter]="30"></mat-spinner>
+    </div>
+
+    <button matButton="filled" (click)="addCinema()" *ngIf="!isLoading">Add Cinema</button>
+  
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width:100%; margin-top: 20px;">
+      <!-- name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+
+       <!-- First Name Column -->
+       <ng-container matColumnDef="screens">
+        <th mat-header-cell *matHeaderCellDef> Screens </th>
+        <td mat-cell *matCellDef="let element"> {{element.screens}} </td>
+      </ng-container>
+  
+  
+      <!-- First Name Column -->
+      <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef> City </th>
+        <td mat-cell *matCellDef="let element"> {{element.city}} </td>
+      </ng-container>
+  
+      <!-- Last Name Column -->
+      <ng-container matColumnDef="state">
+        <th mat-header-cell *matHeaderCellDef> State </th>
+        <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+      </ng-container>
+
+     
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef> Action </th>
+        <td mat-cell *matCellDef="let element"> 
+            <button matMiniFab (click)="deleteCinema(element)" [disabled]="userRole !== 'ADMIN'">
+                <mat-icon>delete</mat-icon>
+            </button>
+            <button matMiniFab (click)="editCinema(element)">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator  [length]="totalElements" [pageSize]="pageSize" [pageIndex]="pageIndex" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+    aria-label="User list pagination" (page)="onPageChange($event)">
+    </mat-paginator>
+
+  </div>

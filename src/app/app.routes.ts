@@ -6,6 +6,7 @@ import { authGuard } from './config/auth.guard';
 import { roleGuard } from './config/role.guard';
 import { ForbiddenComponent } from './public/forbidden-component/forbidden-component';
 import { AspAdminComponent } from './admin/asp-admin-component/asp-admin-component';
+import { CinemaListComponent } from './cinemas/cinema-list-component/cinema-list-component';
 
 export const routes: Routes = [
     {
@@ -17,6 +18,11 @@ export const routes: Routes = [
       path: 'users', 
       component: UserList,
       canActivate: [authGuard]
+    },
+    {
+        path: 'cinemas', 
+        component: CinemaListComponent,
+        canActivate: [authGuard]
     },
     {
         path: 'asp-admin', 
