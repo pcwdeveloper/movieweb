@@ -1,27 +1,28 @@
-<mat-toolbar color="primary">
+<!-- <mat-toolbar color="primary">
     <span>My Dashboard</span>
-  </mat-toolbar>
+  </mat-toolbar> -->
   
   <div class="container">
     <!-- Left Column (20%) -->
     <div class="left-column mat-elevation-z2">
       <mat-card>
-        <mat-card-title>Menu</mat-card-title>
+        <!-- <mat-card-title>Menu</mat-card-title> -->
         <mat-card-content>
-          <p><button mat-button>Dashboard</button></p>
-          <p><button mat-button>Users</button></p>
-          <p><button mat-button>Settings</button></p>
+          <p><button mat-button (click)="loadContainer('cinema')">Cinema</button></p>
         </mat-card-content>
       </mat-card>
     </div>
   
     <!-- Right Column (80%) -->
     <div class="right-column">
-      <mat-card>
+
+      <ng-container #container></ng-container>
+
+      <!-- <mat-card>
         <mat-card-title>Content Area</mat-card-title>
         <mat-card-content>
           <p>This is where your main content goes.</p>
         </mat-card-content>
-      </mat-card>
+      </mat-card> -->
     </div>
   </div>

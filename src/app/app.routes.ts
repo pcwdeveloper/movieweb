@@ -20,11 +20,6 @@ export const routes: Routes = [
       canActivate: [authGuard]
     },
     {
-        path: 'cinemas', 
-        component: CinemaListComponent,
-        canActivate: [authGuard]
-    },
-    {
         path: 'asp-admin', 
         component: AspAdminComponent,
         canActivate: [authGuard,roleGuard(['ADMIN'])]
