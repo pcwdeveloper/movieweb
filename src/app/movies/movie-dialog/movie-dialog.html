@@ -1,0 +1,80 @@
+<div class="dialog-wrapper">
+    <div class="dialog-header">
+      <h2>Add Movie</h2>
+      <button mat-icon-button class="close-btn" (click)="close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    
+    <div mat-dialog-content>
+      <form [formGroup]="movieForm" class="movie-form">
+        <mat-form-field appearance="outline" class="form-field full-width">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" placeholder="Enter Movie Name">
+          <mat-error *ngIf="movieForm.get('name')?.hasError('required')">
+            Name is required
+          </mat-error>
+        </mat-form-field>
+    
+        <div class="row">
+          <mat-form-field>
+            <mat-label>Hour</mat-label>
+            <select matNativeControl formControlName="hour" required>
+              <option value="">Select</option>  
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select>
+            <mat-error *ngIf="movieForm.get('hour')?.hasError('required')">
+                Hour is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Minute</mat-label>
+            <select matNativeControl formControlName="minute" required>
+              <option value="">Select</option>  
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+              <option value="50">50</option>
+              <option value="60">60</option>
+            </select>
+            <mat-error *ngIf="movieForm.get('minute')?.hasError('required')">
+                Minute is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+  
+        <div class="row">
+          <mat-form-field appearance="outline" class="form-field half-width">
+            <mat-label>Language</mat-label>
+            <input matInput formControlName="language" placeholder="Language">
+            <mat-error *ngIf="movieForm.get('language')?.hasError('required')">
+              Language is required
+            </mat-error>
+          </mat-form-field>
+    
+          <mat-form-field appearance="outline" class="form-field half-width">
+            <mat-label>Tags</mat-label>
+            <input matInput formControlName="tags" placeholder="Tags">
+            <mat-error *ngIf="movieForm.get('tags')?.hasError('required')">
+              Tags is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+    
+    <div mat-dialog-actions align="end">
+      <button mat-button (click)="close()">Cancel</button>
+      <button mat-raised-button color="primary" (click)="save()" matButton="filled" [disabled]="isLoading">{{ isLoading ? 'Saving...' : 'Save' }}</button>
+    </div>
+  
+  </div>

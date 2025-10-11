@@ -4,6 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CinemaListComponent } from '../../cinemas/cinema-list-component/cinema-list-component';
+import { MovieListComponent } from '../../movies/movie-list-component/movie-list-component';
 
 @Component({
   selector: 'app-asp-admin-component',
@@ -24,6 +25,11 @@ export class AspAdminComponent {
     this.container.clear();
 
     // Create and insert the component
-    this.container.createComponent(CinemaListComponent);
+    if(view === 'cinema'){
+      this.container.createComponent(CinemaListComponent);
+    }else if(view === 'movie'){
+      this.container.createComponent(MovieListComponent);
+    }
+    
   }
 }
