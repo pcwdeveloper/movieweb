@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../services/auth.service';
 import { CinemaService } from '../../services/cinema.service';
 import { Cinema } from '../../model/cinemas';
+import { CinemaDetailsDialogComponent } from '../cinema-details-dialog-component/cinema-details-dialog-component';
 
 
 @Component({
@@ -94,12 +95,10 @@ export class CinemaListComponent {
     this.isLoading = true;
     this.cdr.detectChanges();
     this.cinemaService.getCinema(cinema.id).subscribe(res => {
-     
         // ✅ prevents ExpressionChangedAfterItWasCheckedError
         this.isLoading = false;
         this.cdr.detectChanges();
         //this.openDialog(res);
-     
     },
      (err) => {
       this.isLoading = false;
@@ -108,5 +107,37 @@ export class CinemaListComponent {
     });
   }
 
+
+  cinemaDetails(cinema:Cinema){
+    console.log(cinema);
+    this.isLoading = true;
+    this.cdr.detectChanges();
+    this.cinemaService.getCinema(cinema.id).subscribe(res => {
+        // ✅ prevents ExpressionChangedAfterItWasCheckedError
+        this.isLoading = false;
+        this.cdr.detectChanges();
+        this.detailDialog(res);
+    },
+     (err) => {
+      this.isLoading = false;
+      this.cdr.detectChanges();
+      console.error('Error edit cinema:', err);
+    });
+  }
+
+
+  detailDialog(cinema?:Cinema){
+    const dialogRef = this.dialog.open(CinemaDetailsDialogComponent, {
+      width: '1200px',
+      maxWidth: '1200px',
+      data:cinema
+    });
+
+    dialogRef.afterClosed().subscribe((result: Cinema | undefined) => {
+      if (result) {
+         this.loadCinemas()
+      }
+    });
+  }
 
 }

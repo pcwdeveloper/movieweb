@@ -1,0 +1,23 @@
+<div class="dialog-wrapper">
+    <div class="dialog-header">
+    
+    </div>
+    <div mat-dialog-content>
+        <form [formGroup]="screenForm" class="movie-form">
+            <mat-form-field appearance="outline" class="form-field full-width">
+              <mat-label>Section</mat-label>
+              <input matInput formControlName="section" placeholder="Select Section">
+              <mat-error *ngIf="screenForm.get('section')?.hasError('required')">
+                Section is required
+              </mat-error>
+            </mat-form-field>
+        </form>    
+
+        
+    </div>
+    
+    <div mat-dialog-actions align="end">
+      <button mat-raised-button color="primary" (click)="save()" matButton="filled" [disabled]="isLoading">{{ isLoading ? 'Saving...' : 'Save' }}</button>
+    </div>
+  
+  </div>

@@ -17,6 +17,11 @@ export class MovieService {
     return this.http.get<any>(environment.apiBaseUrl+'api/movies?pageIndex='+pageIndex+'&pageSize='+pageSize);
   }
 
+  getAllMovie(): Observable<any>{
+    return this.http.get<any>(environment.apiBaseUrl+'api/movies/all');
+  }
+
+
   addMovie(movie: Movie): Observable<User> {
     return this.http.post<User>(environment.apiBaseUrl+'api/movies', movie);
   }

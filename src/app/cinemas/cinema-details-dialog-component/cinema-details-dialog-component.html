@@ -1,0 +1,32 @@
+<div class="dialog-wrapper">
+    <div class="dialog-header">
+      <h2>{{cinema?.name}}</h2>
+      <button mat-icon-button class="close-btn" (click)="close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    
+    <div mat-dialog-content>
+        
+        <mat-tab-group>
+            @for (screen of data.screens; track screen) {
+            <mat-tab label="Screen {{screen.screenNo}}">
+                 {{screen.screenNo}}
+            </mat-tab>
+            }
+
+            <mat-tab label="Add Screen">
+                <app-add-screen></app-add-screen>
+           </mat-tab>
+        </mat-tab-group>
+       
+        
+    
+    </div>
+    
+    <div mat-dialog-actions align="end">
+      <button mat-button (click)="close()">Cancel</button>
+      <!-- <button mat-raised-button color="primary" (click)="save()" matButton="filled" [disabled]="isLoading">{{ isLoading ? 'Saving...' : 'Save' }}</button> -->
+    </div>
+  
+  </div>
