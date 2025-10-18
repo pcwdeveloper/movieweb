@@ -18,7 +18,9 @@
        <ng-container matColumnDef="screens">
         <th mat-header-cell *matHeaderCellDef> Screens </th>
         <td mat-cell *matCellDef="let element">
-            <a matButton href="javascript:void(0)" (click)="cinemaDetails(element)"><mat-icon>eye</mat-icon></a>
+            <a matButton href="javascript:void(0)" (click)="cinemaDetails(element)">
+              <mat-icon>edit</mat-icon>
+            </a>
         </td>
       </ng-container>
   
